@@ -20,6 +20,7 @@
 
 - https://github.com/nix-community/nixos-anywhere
 - https://github.com/nix-community/disko
+- https://github.com/nix-community/nixos-generators
 
 ### Security
 
