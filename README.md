@@ -2,6 +2,10 @@
 
 ## Links
 
+### Blogs
+
+- https://grahamc.com/blog/erase-your-darlings/
+
 ### NixOS- and nix-related
 
 - https://github.com/nix-community/awesome-nix
@@ -11,10 +15,15 @@
 - https://nixos.wiki/wiki/Automatic_system_upgrades
 - https://noogle.dev/
 
-### Secure boot
+### Installation
+
+- https://github.com/nix-community/disko
+
+### Security
 
 - https://nixos.wiki/wiki/Secure_Boot
 - https://github.com/nix-community/lanzaboote/blob/master/docs/QUICK_START.md
+- https://nixos.wiki/wiki/TPM
 
 ### User environment
 
@@ -27,4 +36,3 @@
 - https://github.com/nix-community/lorri
 - https://github.com/nix-community/poetry2nix
 - https://distrobox.it/
-
