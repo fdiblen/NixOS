@@ -4,6 +4,7 @@
 
 ### Blogs
 
+- https://haseebmajid.dev/posts/2024-02-04-how-to-create-a-custom-nixos-iso/
 - https://grahamc.com/blog/erase-your-darlings/
 
 ### NixOS- and nix-related
