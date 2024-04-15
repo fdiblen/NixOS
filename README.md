@@ -25,6 +25,7 @@
 - https://nixos.wiki/wiki/Secure_Boot
 - https://github.com/nix-community/lanzaboote/blob/master/docs/QUICK_START.md
 - https://nixos.wiki/wiki/TPM
+- https://github.com/nix-community/vulnix
 
 ### User environment
 
