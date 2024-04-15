@@ -17,6 +17,7 @@
 
 ### Installation
 
+- https://github.com/nix-community/nixos-anywhere
 - https://github.com/nix-community/disko
 
 ### Security
