@@ -1,67 +1,43 @@
-# NixOS configuration
+# NixOS-config
 
-## Links
+This is my personal NiOS config. It is not guaranteed that it will work on your system.
 
-### Blogs
+**Use at your own risk!**
 
-- https://haseebmajid.dev/posts/2024-02-04-how-to-create-a-custom-nixos-iso/
-- https://grahamc.com/blog/erase-your-darlings/
+## Usage
 
-### NixOS- and nix-related guides and pages
+### 1. Clone this repository
 
-Packages and options:
-- https://search.nixos.org/packages (package search)
-- https://search.nixos.org/options (option search)
+```shell
+git clone https://github.com/fdiblen/NixOS-config.git
+```
 
-Cheatsheets:
-- https://nixos.wiki/wiki/Cheatsheet
-- https://nixos.wiki/wiki/Ubuntu_vs._NixOS
+### 2. Partition your system
 
-Wiki:
-- https://nixos.wiki/index.php?title=Special:AllPages&hideredirects=1 (all wiki pages)
-- https://nixos.wiki/wiki/Automatic_system_upgrades
+Automated partitioning is achived by using disko ([https://github.com/nix-community/disko](https://github.com/nix-community/disko)).
 
-Other:
-- https://github.com/nix-community/awesome-nix (awesome list for nix)
-- https://nur.nix-community.org/
-- https://noogle.dev/
+```shell
+sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko ./NixOS-config/modules/partitioning/luks-btrfs.nix
+```
 
-### Installation
+### 3. Rebuild the system
 
-- https://github.com/nix-community/nixos-anywhere
-- https://github.com/nix-community/disko
-- https://github.com/nix-community/nixos-generators
+Rebuild using the **worklaptop** configuration (hosts/worklaptop):
 
-### Security
+```shell
+sudo nixos-rebuild switch --flake ./NixOS-config#worklaptop
+```
 
-- https://nixos.wiki/wiki/Secure_Boot
-- https://github.com/nix-community/lanzaboote/blob/master/docs/QUICK_START.md
-- https://nixos.wiki/wiki/TPM
-- https://github.com/nix-community/vulnix
+## Notes and tips
 
-### Desktop and user environment
+### Bootloader
 
-- https://github.com/nix-community/home-manager
-- https://github.com/pjones/plasma-manager
-- https://nixos.wiki/wiki/Bluetooth
+Re-installing the bootloader from a running system
 
-### Developer tools
+```shell
+sudo nixos-rebuild --install-bootloader boot
+```
 
-Nix-related:
-- https://github.com/nix-community/nix-direnv
-- https://github.com/nix-community/lorri
-- https://github.com/nix-community/poetry2nix
-- https://github.com/cachix/devenv
-- https://github.com/jetify-com/devbox
-- https://github.com/numtide/devshell
-- https://github.com/nix-community/dream2nix
-- https://github.com/flox/flox?tab=readme-ov-file
+## Useful links
 
-Other: 
-- https://distrobox.it/
-
-### Tools
-
-- https://github.com/snowfallorg/nix-software-center
-- https://github.com/snowfallorg/nixos-conf-editor?tab=readme-ov-file
-- https://github.com/utdemir/nix-tree?tab=readme-ov-file
+see [LINKS.md](LINKS.md)

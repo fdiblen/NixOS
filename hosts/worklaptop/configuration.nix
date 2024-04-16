@@ -1,18 +1,20 @@
-# /etc/nixos/configuration.nix
+# NixOS-config/hosts/worklaptop/configuration.nix
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./main-user.nix
+      inputs.home-manager.nixosModules.default;
     ];
 
   # Extra nix features
   nix.settings.experimental-features = [ "nix-command" "flakes"];
 
   # Bootloader.
-  #boot.loader.systemd-boot.enable = true;
+  #boot.loader.systemd-boot.enable = false;
   #boot.loader.efi.canTouchEfiVariables = true;
 
   boot.loader = {
@@ -144,14 +146,26 @@
 
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.fdiblen = {
-    isNormalUser = true;
-    description = "Faruk";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      firefox
-    ];
-  };
+  # users.users.fdiblen = {
+  #  isNormalUser = true;
+  #  description = "Faruk";
+  #  extraGroups = [ "networkmanager" "wheel" ];
+  #  packages = with pkgs; [
+  #    firefox
+  #  ];
+  # };
+
+  main-user.enable = true;
+  main-user.userName = "fdiblen"
+
+  home-manager = {
+    # also pass inputs to home-manager modules
+    extraSpecialArgs = { inherit inputs; };
+    users = {
+      "fdiblen" = import ./home.nix;
+    }
+  }
+
 
   # Enable automatic login for the user.
   services.displayManager.autoLogin.enable = true;
@@ -193,6 +207,7 @@
     fishPlugins.fzf
     fishPlugins.done
     starship
+    neofetch
 
     opensnitch
     opensnitch-ui
@@ -298,7 +313,5 @@
   # Or disable the firewall altogether.
   networking.firewall.enable = true;
 
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "unstable"; # Did you read the comment?
 }
