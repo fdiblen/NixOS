@@ -12,10 +12,11 @@
     };
   };
 
-  outputs = { self, nixpkgs, ... }@inputs: 
-    let
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+  outputs = { self, nixpkgs, ... }@inputs:
+  let
+    system = "x86_64-linux";
+    pkgs = nixpkgs.legacyPackages.${system};
+  in
   {
     nixosConfigurations = {
       # worklaptop configuration
@@ -25,8 +26,7 @@
           ./hosts/worklaptop/configuration.nix
           inputs.home-manager.nixosModules.default
         ];
-      };  
-      
+      };
     };
   };
 }
