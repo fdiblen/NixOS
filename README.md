@@ -9,11 +9,17 @@
 
 ### NixOS- and nix-related guides and pages
 
-- https://github.com/nix-community/awesome-nix
-- https://search.nixos.org/packages
-- https://search.nixos.org/options
-- https://nur.nix-community.org/
+Packages and options:
+- https://search.nixos.org/packages (package search)
+- https://search.nixos.org/options (option search)
+
+Wiki:
+- https://nixos.wiki/index.php?title=Special:AllPages&hideredirects=1 (all wiki pages)
 - https://nixos.wiki/wiki/Automatic_system_upgrades
+
+Other:
+- https://github.com/nix-community/awesome-nix (awesome list for nix)
+- https://nur.nix-community.org/
 - https://noogle.dev/
 
 ### Installation
