@@ -2,7 +2,7 @@
 
 ## **Use at your own risk!**
 
-This is my personal NiOS config. It is not guaranteed that it will work on your system.
+This is my personal NixOS config. It is not guaranteed that it will work on your system.
 
 ## Usage
 
