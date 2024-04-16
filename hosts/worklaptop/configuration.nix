@@ -6,6 +6,8 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      "${builtins.fetchTarball "https://github.com/nix-community/disko/archive/master.tar.gz"}/module.nix"
+      ../../modules/partitioning/luks-btrfs.nix
       ./main-user.nix
       inputs.home-manager.nixosModules.default;
     ];
@@ -14,7 +16,7 @@
   nix.settings.experimental-features = [ "nix-command" "flakes"];
 
   # Bootloader.
-  #boot.loader.systemd-boot.enable = false;
+  #boot.loader.systemd-boot.enable = true;
   #boot.loader.efi.canTouchEfiVariables = true;
 
   boot.loader = {

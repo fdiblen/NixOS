@@ -20,7 +20,13 @@ Automated partitioning is achived using disko ([https://github.com/nix-community
 sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko ./NixOS-config/modules/partitioning/luks-btrfs.nix
 ```
 
-### 3. Rebuild the system
+### 3. Generate config
+
+```shell
+nixos-generate-config --no-filesystems --root /mnt
+```
+
+### 4. Rebuild the system
 
 Rebuild using the **worklaptop** configuration (hosts/worklaptop):
 

@@ -3,7 +3,6 @@
     disk = {
       vdb = {
         type = "disk";
-        # device = "/dev/vda";
         # device = "/dev/sda";
         # device = "/dev/nvme0n1";
         content = {
@@ -30,9 +29,9 @@
                 #passwordFile = "/tmp/secret.key"; # Interactive
                 settings = {
                   allowDiscards = true;
-                  keyFile = "/tmp/secret.key";
+                  #keyFile = "/tmp/secret.key";
                 };
-                additionalKeyFiles = [ "/tmp/additionalSecret.key" ];
+                #additionalKeyFiles = [ "/tmp/additionalSecret.key" ];
                 content = {
                   type = "btrfs";
                   extraArgs = [ "-f" ];
@@ -51,7 +50,7 @@
                     };
                     "/swap" = {
                       mountpoint = "/.swapvol";
-                      swap.swapfile.size = "34.2G";
+                      swap.swapfile.size = "35G";
                     };
                   };
                 };
