@@ -39,10 +39,11 @@ Other:
 - https://nixos.wiki/wiki/TPM
 - https://github.com/nix-community/vulnix
 
-### User environment
+### Desktop and user environment
 
 - https://github.com/nix-community/home-manager
 - https://github.com/pjones/plasma-manager
+- https://nixos.wiki/wiki/Bluetooth
 
 ### Developer tools
 
