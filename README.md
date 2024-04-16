@@ -1,4 +1,4 @@
-# NixOS-config
+# NixOS-config - WIP
 
 This is my personal NiOS config. It is not guaranteed that it will work on your system.
 
@@ -16,6 +16,10 @@ git clone https://github.com/fdiblen/NixOS-config.git
 
 Automated partitioning is achived using disko ([https://github.com/nix-community/disko](https://github.com/nix-community/disko)).
 
+
+Uncomment the device in `NixOS-config/modules/partitioning/luks-btrfs.nix`
+
+
 ```shell
 sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko ./NixOS-config/modules/partitioning/luks-btrfs.nix
 ```
@@ -23,10 +27,16 @@ sudo nix --experimental-features "nix-command flakes" run github:nix-community/d
 ### 3. Generate config
 
 ```shell
-nixos-generate-config --no-filesystems --root /mnt
+sudo nixos-generate-config --no-filesystems --root /mnt
 ```
 
-### 4. Rebuild the system
+### 4. Install
+
+```shell
+sudo nixos-install --impure --flake ./NixOS-config#worklaptop --root /mnt
+```
+
+### Rebuild the system
 
 Rebuild using the **worklaptop** configuration (hosts/worklaptop):
 
