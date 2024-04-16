@@ -12,8 +12,21 @@
   nix.settings.experimental-features = [ "nix-command" "flakes"];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  #boot.loader.systemd-boot.enable = true;
+  #boot.loader.efi.canTouchEfiVariables = true;
+
+  boot.loader = {
+    efi = {
+      canTouchEfiVariables = false;
+    };
+    grub = {
+       enable = true;
+       efiSupport = true;
+       useOSProber = true;
+       efiInstallAsRemovable = true;
+       device = "nodev";
+    };
+  };
 
   boot.initrd.luks.devices."luks-29cf2741-68ae-429e-a77b-12e5dc838392".device = "/dev/disk/by-uuid/29cf2741-68ae-429e-a77b-12e5dc838392";
   boot.plymouth.enable = true;
@@ -289,4 +302,3 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "unstable"; # Did you read the comment?
 }
-
