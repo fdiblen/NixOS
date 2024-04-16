@@ -40,14 +40,22 @@
                       mountpoint = "/";
                       mountOptions = [ "compress=zstd" "noatime" ];
                     };
+
                     "/home" = {
                       mountpoint = "/home";
                       mountOptions = [ "compress=zstd" "noatime" ];
                     };
+
+                    "/persist" = {
+                      mountOptions = ["subvol=persist" "noatime"];
+                      mountpoint = "/persist";
+                    };
+
                     "/nix" = {
                       mountpoint = "/nix";
                       mountOptions = [ "compress=zstd" "noatime" ];
                     };
+
                     "/swap" = {
                       mountpoint = "/.swapvol";
                       swap.swapfile.size = "35G";
