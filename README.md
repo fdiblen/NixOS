@@ -13,6 +13,10 @@ Packages and options:
 - https://search.nixos.org/packages (package search)
 - https://search.nixos.org/options (option search)
 
+Cheatsheets:
+- https://nixos.wiki/wiki/Cheatsheet
+- https://nixos.wiki/wiki/Ubuntu_vs._NixOS
+
 Wiki:
 - https://nixos.wiki/index.php?title=Special:AllPages&hideredirects=1 (all wiki pages)
 - https://nixos.wiki/wiki/Automatic_system_upgrades
