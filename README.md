@@ -1,4 +1,4 @@
-# NixOS-config - WIP
+# NixOS-config - WIP (work in progress)
 
 This is my personal NiOS config. It is not guaranteed that it will work on your system.
 
@@ -52,6 +52,7 @@ sudo nixos-rebuild switch --flake ./NixOS-config#worklaptop
 - Set the firewall rules
 - Configure the user shell
 - Automate the partitioning step
+- Add zram?
 
 ## Notes and tips
 
