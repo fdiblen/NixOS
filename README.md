@@ -1,8 +1,8 @@
 # NixOS-config - WIP (work in progress)
 
-This is my personal NiOS config. It is not guaranteed that it will work on your system.
+## **Use at your own risk!**
 
-**Use at your own risk!**
+This is my personal NiOS config. It is not guaranteed that it will work on your system.
 
 ## Usage
 
