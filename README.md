@@ -12,9 +12,9 @@ This is my personal NiOS config. It is not guaranteed that it will work on your 
 git clone https://github.com/fdiblen/NixOS-config.git
 ```
 
-### 2. Partition your system
+### 2. Partition your disk
 
-Automated partitioning is achived by using disko ([https://github.com/nix-community/disko](https://github.com/nix-community/disko)).
+Automated partitioning is achived using disko ([https://github.com/nix-community/disko](https://github.com/nix-community/disko)).
 
 ```shell
 sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko ./NixOS-config/modules/partitioning/luks-btrfs.nix
@@ -27,6 +27,15 @@ Rebuild using the **worklaptop** configuration (hosts/worklaptop):
 ```shell
 sudo nixos-rebuild switch --flake ./NixOS-config#worklaptop
 ```
+
+## TODO
+
+- Make configuration.nix more modular
+- Add dotfiles to home-manager
+- System hardening
+- Set the firewall rules
+- Configure the user shell
+- Automate the partitioning step
 
 ## Notes and tips
 
