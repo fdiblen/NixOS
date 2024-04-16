@@ -1,4 +1,4 @@
-# NixOS-config/hosts/worklaptop/home.nix
+# hosts/worklaptop/home.nix
 
 { config, pkgs, ... }:
 

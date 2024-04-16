@@ -1,4 +1,4 @@
-# NixOS-config//hosts/worklaptop/main-user.nix
+# hosts/worklaptop/main-user.nix
 
 { lib, config, pkgs, ... }:
 
@@ -25,7 +25,7 @@ in
         extraGroups = [ "networkmanager" "wheel" ];
         packages = with pkgs; [
           # firefox
-        ];        
+        ];
     };
   };
 }

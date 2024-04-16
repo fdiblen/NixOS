@@ -1,4 +1,4 @@
-# NixOS-config/hosts/worklaptop/configuration.nix
+# hosts/worklaptop/configuration.nix
 
 { config, pkgs, inputs, ... }:
 
@@ -32,7 +32,6 @@
     };
   };
 
-  boot.initrd.luks.devices."luks-29cf2741-68ae-429e-a77b-12e5dc838392".device = "/dev/disk/by-uuid/29cf2741-68ae-429e-a77b-12e5dc838392";
   boot.plymouth.enable = true;
 
   # Enable OpenGL
@@ -49,20 +48,10 @@
     modesetting.enable = true;
     powerManagement.enable = false;
     powerManagement.finegrained = false;
-
-    # Use the NVidia open source kernel module (not to be confused with the
-    # independent third-party "nouveau" open source driver).
-    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus 
-    # Only available from driver 515.43.04+
     open = false;
-
-    # Enable the Nvidia settings menu, accessible via `nvidia-settings`.
     nvidiaSettings = true;
-
-    # Optionally, you may need to select the appropriate driver version for your specific GPU.
     package = config.boot.kernelPackages.nvidiaPackages.stable;
 
-    # https://nixos.wiki/wiki/Nvidia
     # prime = {
     #   offload = {
     #     enable = true;
@@ -191,13 +180,13 @@
       defaultNetwork.settings.dns_enabled = true;
     };
   };
- 
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     sbctl
 
-    vim 
+    vim
     wget
     curl
     htop
@@ -225,11 +214,11 @@
     docker-compose # start group of containers for dev
     #podman-compose # start group of containers for dev
     podman-desktop
-    
+
     nodejs-slim
 
     gcc
-    
+
     root
     geant4
 
@@ -257,7 +246,7 @@
     kdePackages.kde-gtk-config
     kdePackages.kde-cli-tools
     kdePackages.dolphin-plugins
-    
+
     brave
     microsoft-edge
     google-chrome
@@ -295,7 +284,7 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-  
+
   # Printing
   services.printing.enable = true;
 
