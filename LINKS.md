@@ -59,7 +59,7 @@ Nix-related:
 - https://github.com/nix-community/dream2nix
 - https://github.com/flox/flox?tab=readme-ov-file
 
-Other: 
+Other:
 - https://distrobox.it/
 
 ### Tools
@@ -70,6 +70,7 @@ Other:
 
 ## Other NixOS configs
 
+- https://github.com/Goxore/nixconf
 - https://github.com/Misterio77/nix-starter-configs
 - https://github.com/Xe/nixos-configs
 - https://github.com/MatthewCroughan/nixcfg/tree/master
