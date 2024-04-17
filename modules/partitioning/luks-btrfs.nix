@@ -1,10 +1,12 @@
 {
+  device ? throw "Set this to disk device, e.g. /dev/nvme0n1",
+  ...
+}: {
   disko.devices = {
     disk = {
       vdb = {
         type = "disk";
-        # device = "/dev/sda";
-        # device = "/dev/nvme0n1";
+        inherit device;
         content = {
           type = "gpt";
           partitions = {
