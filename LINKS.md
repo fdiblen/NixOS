@@ -8,9 +8,15 @@
 - https://haseebmajid.dev/posts/2024-02-04-how-to-create-a-custom-nixos-iso/
 - https://grahamc.com/blog/erase-your-darlings/
 
+### Video tutorials
+
+- https://www.youtube.com/@librephoenix/videos
+- https://www.youtube.com/@vimjoyer/videos
+
 ### NixOS- and nix-related guides and pages
 
 Packages and options:
+- https://mynixos.com/
 - https://search.nixos.org/packages (package search)
 - https://search.nixos.org/options (option search)
 
