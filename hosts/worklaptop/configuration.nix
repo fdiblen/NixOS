@@ -6,8 +6,8 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      "${builtins.fetchTarball "https://github.com/nix-community/disko/archive/master.tar.gz"}/module.nix"
-      ../../modules/partitioning/luks-btrfs.nix
+      (import ./disko.nix {device = "/dev/nvme1n1";})
+      inputs.disko.nixosModules.default
       ./main-user.nix
       inputs.home-manager.nixosModules.default;
     ];
@@ -15,10 +15,7 @@
   # Extra nix features
   nix.settings.experimental-features = [ "nix-command" "flakes"];
 
-  # Bootloader.
-  #boot.loader.systemd-boot.enable = true;
-  #boot.loader.efi.canTouchEfiVariables = true;
-
+  # Boot configuration
   boot.loader = {
     efi = {
       canTouchEfiVariables = false;
@@ -31,7 +28,6 @@
        device = "nodev";
     };
   };
-
   boot.plymouth.enable = true;
 
   # Enable OpenGL
@@ -51,7 +47,6 @@
     open = false;
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
-
     # prime = {
     #   offload = {
     #     enable = true;
@@ -95,7 +90,7 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the KDE Plasma Desktop Environment.
+  # Enable the KDE Plasma 6
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
   services.displayManager.sddm.wayland.enable = true;
@@ -124,7 +119,7 @@
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
 
-  # Bluetooth
+  # Enable bluetooth
   hardware.bluetooth = {
     enable = true; # enables support for Bluetooth
     powerOnBoot = true; # powers up the default Bluetooth controller on boot
@@ -134,7 +129,6 @@
       };
     };
   };
-
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   # users.users.fdiblen = {
@@ -157,8 +151,7 @@
     }
   }
 
-
-  # Enable automatic login for the user.
+  # Enable automatic login for the user
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = "fdiblen";
 
@@ -174,15 +167,12 @@
   virtualisation = {
     podman = {
       enable = true;
-      # Create a `docker` alias for podman, to use it as a drop-in replacement
       dockerCompat = true;
-      # Required for containers under podman-compose to be able to talk to each other.
       defaultNetwork.settings.dns_enabled = true;
     };
   };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
     sbctl
 
@@ -205,64 +195,7 @@
 
     git
 
-    vscode-with-extensions
-
-    distrobox
-
-    dive # look into docker image layers
-    podman-tui # status of containers in the terminal
-    docker-compose # start group of containers for dev
-    #podman-compose # start group of containers for dev
-    podman-desktop
-
-    nodejs-slim
-
-    gcc
-
-    root
-    geant4
-
-    cudaPackages.cudatoolkit
-    cudaPackages.cudnn
-    cudaPackages.cuda_nvcc
-
-    python312
-    python312Packages.pip
-    python312Packages.virtualenv
-    #python312Packages.torchWithCuda
-    #python312Packages.tensorflowWithCuda
-
-    kdePackages.discover
-    kdePackages.sddm-kcm
-    kdePackages.flatpak-kcm
-    kdePackages.plasma-firewall
-    kdePackages.bluedevil
-    kdePackages.plasma-thunderbolt
-    kdePackages.print-manager
-    kdePackages.kdeconnect-kde
-    kdePackages.xdg-desktop-portal-kde
-    kdePackages.plasma-workspace-wallpapers
-    kdePackages.partitionmanager
-    kdePackages.kde-gtk-config
-    kdePackages.kde-cli-tools
-    kdePackages.dolphin-plugins
-
-    brave
-    microsoft-edge
-    google-chrome
-
     zoom-us
-
-    noto-fonts
-    noto-fonts-cjk
-    noto-fonts-emoji
-    liberation_ttf
-    fira-code
-    fira-code-symbols
-    mplus-outline-fonts.githubRelease
-    dina-font
-    proggyfonts
-    nerdfonts
 
   ];
 
@@ -301,7 +234,6 @@
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
   networking.firewall.enable = true;
 
   system.stateVersion = "unstable"; # Did you read the comment?

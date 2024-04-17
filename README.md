@@ -6,7 +6,15 @@ This is my personal NixOS config. It is not guaranteed that it will work on your
 
 ## Usage
 
-### 1. Clone this repository
+### 1. Preparation
+
+Install the required tools
+
+```shell
+nix-env -f '<nixpkgs>' -iA git
+```
+
+Clone this repository
 
 ```shell
 git clone https://github.com/fdiblen/NixOS-config.git
@@ -16,9 +24,7 @@ git clone https://github.com/fdiblen/NixOS-config.git
 
 Automated partitioning is achived using disko ([https://github.com/nix-community/disko](https://github.com/nix-community/disko)).
 
-
 Uncomment the device in `NixOS-config/modules/partitioning/luks-btrfs.nix`
-
 
 ```shell
 sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko ./NixOS-config/modules/partitioning/luks-btrfs.nix
@@ -55,6 +61,12 @@ sudo nixos-rebuild switch --flake ./NixOS-config#worklaptop
 - Add zram?
 
 ## Notes and tips
+
+### Install dependencies
+
+```shell
+sudo nix --experimental-features "nix-command flakes" run  github:fdiblen/NixOS-config
+```
 
 ### Bootloader
 
