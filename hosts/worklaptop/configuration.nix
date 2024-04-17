@@ -9,7 +9,7 @@
       (import ./disko.nix {device = "/dev/nvme1n1";})
       inputs.disko.nixosModules.default
       ./main-user.nix
-      inputs.home-manager.nixosModules.default;
+      # inputs.home-manager.nixosModules.default
     ];
 
   # Extra nix features
@@ -141,15 +141,15 @@
   # };
 
   main-user.enable = true;
-  main-user.userName = "fdiblen"
+  main-user.userName = "fdiblen";
 
-  home-manager = {
-    # also pass inputs to home-manager modules
-    extraSpecialArgs = { inherit inputs; };
-    users = {
-      "fdiblen" = import ./home.nix;
-    }
-  }
+  # home-manager = {
+  #   # also pass inputs to home-manager modules
+  #   extraSpecialArgs = { inherit inputs; };
+  #   users = {
+  #     "fdiblen" = import ./home.nix;
+  #   };
+  # };
 
   # Enable automatic login for the user
   services.displayManager.autoLogin.enable = true;
@@ -198,7 +198,6 @@
     zoom-us
 
   ];
-
 
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     plasma-browser-integration

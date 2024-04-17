@@ -11,28 +11,28 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # home-manager = {
+    #   url = "github:nix-community/home-manager";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
-  outputs = { self, nixpkgs, ... } @inputs:
-  let
-    system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system};
-  in {
-  nixosConfigurations = {
+  # outputs = { self, nixpkgs, ... } @inputs:
+  # let
+  #   system = "x86_64-linux";
+  #   pkgs = nixpkgs.legacyPackages.${system};
+  # in
 
-      # worklaptop configuration
-      worklaptop = nixpkgs.lib.nixosSystem {
-        extraSpecialArgs = {inherit inputs;};
-        modules = [
-          ./hosts/worklaptop/configuration.nix
-          inputs.home-manager.nixosModules.default
-        ];
-      };
+  outputs = inputs@{ self, nixpkgs, ... }:
 
+  {
+    nixosConfigurations.worklaptop = nixpkgs.lib.nixosSystem {
+      # extraSpecialArgs = {inherit inputs;};
+      system = "x86_64-linux";
+      modules = [
+        ./hosts/worklaptop/configuration.nix
+        # inputs.home-manager.nixosModules.default
+      ];
     };
   };
 }
