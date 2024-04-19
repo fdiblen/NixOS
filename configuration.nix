@@ -1,33 +1,34 @@
-# hosts/worklaptop/configuration.nix
+# /etc/nixos/configuration.nix
 
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      (import ./disko.nix {device = "/dev/nvme1n1";})
-      inputs.disko.nixosModules.default
-      ./main-user.nix
-      # inputs.home-manager.nixosModules.default
     ];
 
   # Extra nix features
   nix.settings.experimental-features = [ "nix-command" "flakes"];
 
-  # Boot configuration
-  boot.loader = {
-    efi = {
-      canTouchEfiVariables = false;
-    };
-    grub = {
-       enable = true;
-       efiSupport = true;
-       useOSProber = true;
-       efiInstallAsRemovable = true;
-       device = "nodev";
-    };
-  };
+  # Bootloader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  #boot.loader = {
+  #  efi = {
+  #    canTouchEfiVariables = false;
+  #  };
+  #  grub = {
+  #     enable = true;
+  #     efiSupport = true;
+  #     useOSProber = true;
+  #     efiInstallAsRemovable = true;
+  #     device = "nodev";
+  #  };
+  #};
+
+  boot.initrd.luks.devices."luks-29cf2741-68ae-429e-a77b-12e5dc838392".device = "/dev/disk/by-uuid/29cf2741-68ae-429e-a77b-12e5dc838392";
   boot.plymouth.enable = true;
 
   # Enable OpenGL
@@ -44,9 +45,20 @@
     modesetting.enable = true;
     powerManagement.enable = false;
     powerManagement.finegrained = false;
+
+    # Use the NVidia open source kernel module (not to be confused with the
+    # independent third-party "nouveau" open source driver).
+    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus 
+    # Only available from driver 515.43.04+
     open = false;
+
+    # Enable the Nvidia settings menu, accessible via `nvidia-settings`.
     nvidiaSettings = true;
+
+    # Optionally, you may need to select the appropriate driver version for your specific GPU.
     package = config.boot.kernelPackages.nvidiaPackages.stable;
+
+    # https://nixos.wiki/wiki/Nvidia
     # prime = {
     #   offload = {
     #     enable = true;
@@ -90,7 +102,7 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the KDE Plasma 6
+  # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
   services.displayManager.sddm.wayland.enable = true;
@@ -119,7 +131,7 @@
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
 
-  # Enable bluetooth
+  # Bluetooth
   hardware.bluetooth = {
     enable = true; # enables support for Bluetooth
     powerOnBoot = true; # powers up the default Bluetooth controller on boot
@@ -130,28 +142,25 @@
     };
   };
 
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  # users.users.fdiblen = {
-  #  isNormalUser = true;
-  #  description = "Faruk";
-  #  extraGroups = [ "networkmanager" "wheel" ];
-  #  packages = with pkgs; [
-  #    firefox
-  #  ];
-  # };
+  users.users.fdiblen = {
+    isNormalUser = true;
+    description = "Faruk";
+    extraGroups = [ "networkmanager" "wheel" ];
+    packages = with pkgs; [
+      #vscode-with-extensions
+      #vscode-extensions.jnoortheen.nix-ide
+      vscode
+ 
+      firefox
+      brave
+      microsoft-edge
+      google-chrome
+    ];
+  };
 
-  main-user.enable = true;
-  main-user.userName = "fdiblen";
-
-  # home-manager = {
-  #   # also pass inputs to home-manager modules
-  #   extraSpecialArgs = { inherit inputs; };
-  #   users = {
-  #     "fdiblen" = import ./home.nix;
-  #   };
-  # };
-
-  # Enable automatic login for the user
+  # Enable automatic login for the user.
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = "fdiblen";
 
@@ -167,16 +176,23 @@
   virtualisation = {
     podman = {
       enable = true;
+      # Create a `docker` alias for podman, to use it as a drop-in replacement
       dockerCompat = true;
+      # Required for containers under podman-compose to be able to talk to each other.
       defaultNetwork.settings.dns_enabled = true;
     };
   };
 
-  # List packages installed in system profile.
+  virtualisation.virtualbox.host.enable = true;
+  virtualisation.virtualbox.host.enableExtensionPack = true;
+  users.extraGroups.vboxusers.members = [ "fdiblen" ];
+ 
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
   environment.systemPackages = with pkgs; [
     sbctl
 
-    vim
+    vim 
     wget
     curl
     htop
@@ -188,16 +204,68 @@
     fishPlugins.fzf
     fishPlugins.done
     starship
-    neofetch
 
     opensnitch
     opensnitch-ui
 
     git
 
+
+    distrobox
+
+    dive # look into docker image layers
+    podman-tui # status of containers in the terminal
+    docker-compose # start group of containers for dev
+    #podman-compose # start group of containers for dev
+    podman-desktop
+    
+    nodejs-slim
+
+    gcc
+    
+    root
+    geant4
+
+    cudaPackages.cudatoolkit
+    cudaPackages.cudnn
+    cudaPackages.cuda_nvcc
+
+    python312
+    python312Packages.pip
+    python312Packages.virtualenv
+    #python312Packages.torchWithCuda
+    #python312Packages.tensorflowWithCuda
+
+    kdePackages.discover
+    kdePackages.sddm-kcm
+    kdePackages.flatpak-kcm
+    kdePackages.plasma-firewall
+    kdePackages.bluedevil
+    kdePackages.plasma-thunderbolt
+    kdePackages.print-manager
+    kdePackages.kdeconnect-kde
+    kdePackages.xdg-desktop-portal-kde
+    kdePackages.plasma-workspace-wallpapers
+    kdePackages.partitionmanager
+    kdePackages.kde-gtk-config
+    kdePackages.kde-cli-tools
+    kdePackages.dolphin-plugins
+    
     zoom-us
 
+    noto-fonts
+    noto-fonts-cjk
+    noto-fonts-emoji
+    liberation_ttf
+    fira-code
+    fira-code-symbols
+    mplus-outline-fonts.githubRelease
+    dina-font
+    proggyfonts
+    nerdfonts
+
   ];
+
 
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     plasma-browser-integration
@@ -216,7 +284,7 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-
+  
   # Printing
   services.printing.enable = true;
 
@@ -233,7 +301,10 @@
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
+  # Or disable the firewall altogether.
   networking.firewall.enable = true;
 
+  # Before changing this value read the documentation for this option
+  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "unstable"; # Did you read the comment?
 }
