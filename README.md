@@ -11,7 +11,7 @@ This is my personal NixOS config. It is not guaranteed that it will work on your
 Install the required tools
 
 ```shell
-nix-env -f '<nixpkgs>' -iA git
+nix-env -f '<nixpkgs>' -iA git rsync curl
 ```
 
 Clone this repository
@@ -61,6 +61,35 @@ sudo nixos-rebuild switch --flake ./NixOS-config#worklaptop
 - Add zram?
 
 ## Notes and tips
+
+### Check the flakes
+
+inspect:
+
+```shell
+nix --extra-experimental-features "nix-command flakes" flake show
+```
+
+check:
+
+```shell
+nix --extra-experimental-features "nix-command flakes" flake check
+```
+
+
+nix repl:
+```shell
+nix --experimental-features "nix-command flakes" repl
+Welcome to Nix 2.18.2. Type :? for help.
+
+nix-repl> :lf .
+warning: Git tree '/home/fdiblen/Desktop/NixOS-config' is dirty
+Added 12 variables.
+
+nix-repl> outputs.nixosConfigurations.worklaptop.config.fileSystems."/"
+
+nix-repl> outputs.nixosConfigurations.worklaptop.config.fileSystems."/boot"
+```
 
 ### Install dependencies
 

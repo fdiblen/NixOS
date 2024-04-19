@@ -1,12 +1,16 @@
+# profiles/minimal/disko.nix
+
+# {
+#   device ? throw "Set this to disk device, e.g. /dev/nvme0n1",
+#   ...
+# }:
 {
-  device ? throw "Set this to disk device, e.g. /dev/nvme0n1",
-  ...
-}: {
   disko.devices = {
     disk = {
-      vdb = {
+      main = {
         type = "disk";
-        inherit device;
+        # inherit device;
+        device = "/dev/nvme0n1";
         content = {
           type = "gpt";
           partitions = {
@@ -60,7 +64,7 @@
 
                     "/swap" = {
                       mountpoint = "/.swapvol";
-                      swap.swapfile.size = "35G";
+                      swap.swapfile.size = "8G";
                     };
                   };
                 };
